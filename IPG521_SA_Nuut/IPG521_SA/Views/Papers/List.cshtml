@@ -1,0 +1,48 @@
+﻿@model IPG521_SA.Models.PaperView
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>My Papers</h2>
+
+<p>
+    @Html.ActionLink("Submit New Paper", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+          Id
+        </th>
+        <th>
+           Title
+        </th>
+        <th>
+           Submission Date
+        </th>
+        <th>
+           Topic
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.papers) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.PaperId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PaperTitle)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PaperDateSubmitted)
+    </td>
+    <td>
+        @Model.topics.SingleOrDefault(s => s.TopicID == item.TopicID).TopicName
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.PaperId }, new { @class = "btn btn-warning" })|
+        @Html.ActionLink("Delete", "Delete", new { id = item.PaperId }, new { @class = "btn btn-danger" })
+    </td>
+</tr>
+}
+</table>

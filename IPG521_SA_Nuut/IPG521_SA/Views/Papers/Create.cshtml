@@ -1,0 +1,67 @@
+﻿@model IPG521_SA.Models.Papers
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Submitted New Papers</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Paper</h4>
+        @Html.ValidationMessageFor(model => model.PaperTitle, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.PaperAbstract, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.TopicID, "", new { @class = "text-danger" })
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <h4 style="left:-200px">Title</h4>
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PaperTitle, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <h4 style="left:-20px">Abstract</h4>
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PaperAbstract, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <h4 style="left:-20px">Topic</h4>
+        <div class="form-group">
+
+            <div class="col-md-10" style="height:50px ">
+                @Html.DropDownListFor(model => model.TopicID,
+                new SelectList
+                   (
+                  new List<SelectListItem> {
+                  new SelectListItem { Selected = true, Text = "-- Select Topic --", Value = "-1" },
+                  new SelectListItem { Selected = false, Text = "Data Science", Value = "1"},
+                  new SelectListItem { Selected = false, Text = "Education", Value = "2"},
+                  new SelectListItem { Selected = false, Text = "Human-Computer Interaction", Value = "3" },
+                  new SelectListItem { Selected = false, Text = "Internet of Things", Value = "4"}
+                  }, "Value", "Text")               
+                  )
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Submit" class="btn btn-primary" style="background-color:blue" />
+                <a class="btn btn-default" href="@Url.Action("Index","Home")" style="border-color:blue; color:blue;">Back to List</a>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
